@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 def secretPropertiesFile = rootProject.file("secrets.properties")
@@ -11,7 +13,6 @@ android {
     compileSdk 31
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
     defaultConfig {
         applicationId "com.carlosblaya.marveldemo"
@@ -57,6 +58,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.40.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.40.1"
+
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
@@ -66,15 +71,7 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
-
-    def koin_version= "3.2.0-beta-1"
-    // Koin Core features
-    implementation "io.insert-koin:koin-core:$koin_version"
-    // Koin Test features
-    testImplementation "io.insert-koin:koin-test:$koin_version"
-    // Koin main features for Android
-    implementation "io.insert-koin:koin-android:$koin_version"
-
+    
     // Activity-KTX
     implementation 'androidx.activity:activity-ktx:1.5.0-alpha03'
 
@@ -86,6 +83,12 @@ dependencies {
 
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Room
+    implementation "androidx.room:room-runtime:2.4.1"
+
+    // Paging
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
