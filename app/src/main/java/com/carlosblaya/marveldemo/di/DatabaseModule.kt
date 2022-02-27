@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -27,7 +28,16 @@ class DatabaseModule {
     }
 
     @Provides
+    @Named(Konsts.DATABASE_NAME)
+    fun provideInMemoryDB(@ApplicationContext context: Context) =
+        Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
+
+    @Provides
+    @Singleton
     fun provideCharacterDao(appDatabase: AppDatabase): CharacterDao {
         return appDatabase.characterDao()
     }
+
 }
