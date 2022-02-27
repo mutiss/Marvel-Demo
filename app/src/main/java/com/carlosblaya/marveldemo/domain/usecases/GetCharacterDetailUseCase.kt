@@ -1,6 +1,5 @@
 package com.carlosblaya.marveldemo.domain.usecases
 
-import androidx.paging.PagingData
 import com.carlosblaya.marveldemo.data.Result
 import com.carlosblaya.marveldemo.domain.model.Character
 import com.carlosblaya.marveldemo.domain.repository.CharacterRepository

@@ -24,8 +24,7 @@ data class CharacterResponse(
     @SerializedName("description") val description: String,
     @SerializedName("modified") val modified: String,
     @SerializedName("resourceUri") val resourceUri: String,
-    @SerializedName("thumbnail") val thumbnailResponse: ThumbnailResponse,
-    @SerializedName("comics") val comics: CharacterComicContainerResponse
+    @SerializedName("thumbnail") val thumbnailResponse: ThumbnailResponse
 )
 
 data class ThumbnailResponse(val path: String, val extension: String)

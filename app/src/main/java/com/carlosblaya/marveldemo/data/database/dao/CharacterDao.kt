@@ -11,4 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface CharacterDao : BaseDao<CharacterDB> {
     @Query("SELECT * FROM character WHERE id = :id")
     fun getCharacter(id: Long):CharacterDB
+
+    @Query("SELECT * FROM character")
+    fun getCharacters(): List<CharacterDB>
 }
