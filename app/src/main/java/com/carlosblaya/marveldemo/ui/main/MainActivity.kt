@@ -1,23 +1,20 @@
 package com.carlosblaya.marveldemo.ui.main
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.carlosblaya.marveldemo.R
 import com.carlosblaya.marveldemo.base.BaseActivity
 import com.carlosblaya.marveldemo.databinding.ActivityMainBinding
+import com.carlosblaya.marveldemo.ui.characters.list.CharacterListFragment
 import com.carlosblaya.marveldemo.util.FragmentUtil
-import com.carlosblaya.marveldemo.util.viewBinding
+import com.carlosblaya.marveldemo.util.extensions.fadeOut
+import com.carlosblaya.marveldemo.util.extensions.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    val viewModel: MainViewModel by viewModel()
     val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +45,10 @@ class MainActivity : BaseActivity() {
                 fm.popBackStackImmediate()
                 val f: Fragment? = fm.findFragmentById(R.id.fl_container)
                 f.let {
-
+                    if (f is CharacterListFragment) {
+                        setTitleHeadbar(resources.getString(R.string.search))
+                        binding.headbar.ivBack.fadeOut()
+                    }
                 }
             } else {
                 finish()

@@ -25,10 +25,16 @@ data class CharacterResponse(
     @SerializedName("modified") val modified: String,
     @SerializedName("resourceUri") val resourceUri: String,
     @SerializedName("thumbnail") val thumbnailResponse: ThumbnailResponse,
-    @SerializedName("coics") val listComics: List<ComicResponse>
+    @SerializedName("comics") val comics: CharacterComicContainerResponse
 )
 
 data class ThumbnailResponse(val path: String, val extension: String)
+
+data class CharacterComicContainerResponse(
+    @SerializedName("available") val available: Int,
+    @SerializedName("collectionUri") val collectionUri: String,
+    @SerializedName("items") val listComics: List<ComicResponse>
+)
 
 data class ComicResponse(
     @SerializedName("id") val id: Long,

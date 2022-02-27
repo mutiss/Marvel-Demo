@@ -4,10 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "character")
-data class Character(
+data class CharacterDB(
     @PrimaryKey
-    var id: String,
-    var name: String? = ""
+    var id: Long,
+    var name: String = "",
+    var description: String = "",
+    var thumbnail: String = ""
 )
 
 

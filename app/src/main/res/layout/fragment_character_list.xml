@@ -41,6 +41,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
+                android:id="@+id/iv_do_search"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:scaleType="center"
+                android:src="@drawable/outline_search_24"
+                android:visibility="gone"
+                app:tint="@color/white"></ImageView>
+
+            <ImageView
                 android:id="@+id/iv_clear_search"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

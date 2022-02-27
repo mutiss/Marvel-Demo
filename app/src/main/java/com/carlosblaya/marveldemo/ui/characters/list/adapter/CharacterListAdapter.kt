@@ -7,11 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.carlosblaya.marveldemo.databinding.ItemCharacterBinding
 import com.carlosblaya.marveldemo.domain.model.Character
-import com.carlosblaya.marveldemo.util.fromUrl
-import com.carlosblaya.marveldemo.util.hideKeyboard
+import com.carlosblaya.marveldemo.util.extensions.fromUrl
 import javax.inject.Inject
 
-class CharacterListAdapter @Inject constructor(private val artistClickListener: (characterItem: Character) -> Unit) :
+class CharacterListAdapter @Inject constructor(private val superHeroClickListener: (characterItem: Character?) -> Unit) :
     PagingDataAdapter<Character, CharacterListAdapter.CharacterListViewHolder>(DiffUtilCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListViewHolder {
@@ -25,12 +24,13 @@ class CharacterListAdapter @Inject constructor(private val artistClickListener: 
 
     inner class CharacterListViewHolder(val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(character: Character) {
-
             val characterItem = getItem(absoluteAdapterPosition)
             characterItem?.let {
                 binding.ivSuperhero.fromUrl(character.thumbnail)
                 binding.tvName.text = character.name
-                artistClickListener(it)
+            }
+            binding.root.setOnClickListener {
+                superHeroClickListener(characterItem)
             }
         }
     }

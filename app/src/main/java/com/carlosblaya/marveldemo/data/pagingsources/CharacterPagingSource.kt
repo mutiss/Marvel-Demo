@@ -2,15 +2,17 @@ package com.carlosblaya.marveldemo.data.pagingsources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
-import com.carlosblaya.marveldemo.data.response.mapper.CharacterListMapper
+import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
 import com.carlosblaya.marveldemo.domain.model.Character
 import com.carlosblaya.marveldemo.util.Konsts
 
 class CharacterPagingSource(
     private val service: CharacterApiInterface,
-    private val mapper: CharacterListMapper,
+    private val mapper: CharacterMapper,
     private val name: String?,
+    private val characterDao: CharacterDao,
 ) : PagingSource<Int, Character>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
@@ -19,6 +21,7 @@ class CharacterPagingSource(
         return try {
             val jsonResponse = service.getCharacters(name = name, offset = offset).dataResponse
             val response = mapper.toCharacterList(jsonResponse.results)
+            characterDao.insert(mapper.toCharacterListDB(jsonResponse.results)) // Insert list into DB
             val nextKey = if (response.isEmpty()) {
                 null
             } else {
