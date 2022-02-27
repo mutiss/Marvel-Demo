@@ -1,5 +1,6 @@
 package com.carlosblaya.marveldemo.ui.characters.list
 
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.core.view.isVisible
@@ -11,10 +12,11 @@ import com.carlosblaya.marveldemo.base.BaseFragment
 import com.carlosblaya.marveldemo.databinding.FragmentCharacterListBinding
 import com.carlosblaya.marveldemo.ui.characters.list.adapter.CharacterListAdapter
 import com.carlosblaya.marveldemo.ui.main.MainActivity
-import com.carlosblaya.marveldemo.util.fadeIn
-import com.carlosblaya.marveldemo.util.fadeOut
-import com.carlosblaya.marveldemo.util.hideKeyboard
-import com.carlosblaya.marveldemo.util.showMessage
+import com.carlosblaya.marveldemo.util.ExtraConstants
+import com.carlosblaya.marveldemo.util.FragmentUtil
+import com.carlosblaya.marveldemo.util.extensions.fadeIn
+import com.carlosblaya.marveldemo.util.extensions.fadeOut
+import com.carlosblaya.marveldemo.util.extensions.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -27,7 +29,12 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel, FragmentChara
 
     private val characterListAdapter by lazy {
         CharacterListAdapter {
-
+            val bundle = Bundle()
+            bundle.putSerializable(ExtraConstants.ID_CHARACTER, it?.id)
+            FragmentUtil.changeMainFragment(
+                requireActivity() as MainActivity,
+                FragmentUtil.TAG_DETAIL, bundle
+            )
         }
     }
 
@@ -35,18 +42,13 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel, FragmentChara
         initView()
         setupClicks()
         initAdapter()
-        bindEvents()
     }
 
     private fun initView() {
         (requireActivity() as MainActivity).setTitleHeadbar(resources.getString(R.string.search))
-
         with(fragmentBinding) {
-
-            // initial recyclerView
             rvSuperheroes.setHasFixedSize(true)
             rvSuperheroes.adapter = characterListAdapter
-
             etSearch.addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 }
@@ -57,17 +59,14 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel, FragmentChara
                 override fun afterTextChanged(s: Editable) {
                     if (s.isNotEmpty()) {
                         if (s.length == 1) {
-                            if (!ivClearSearch.isVisible)
+                            if (!ivClearSearch.isVisible) {
                                 ivClearSearch.fadeIn()
-                        } else if (s.length >= 3) {
-                            lifecycleScope.launch {
-                                viewModel.getCharacters(s.toString()).collect {
-                                    characterListAdapter.submitData(it)
-                                }
+                                ivDoSearch.fadeIn()
                             }
                         }
                     } else {
                         ivClearSearch.fadeOut()
+                        ivDoSearch.fadeOut()
                         requestBlankSearch()
                     }
                 }
@@ -78,9 +77,18 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel, FragmentChara
     }
 
     private fun setupClicks() {
-        fragmentBinding.ivClearSearch.setOnClickListener {
-            fragmentBinding.etSearch.hideKeyboard()
-            fragmentBinding.etSearch.setText("")
+        with(fragmentBinding) {
+            ivClearSearch.setOnClickListener {
+                fragmentBinding.etSearch.hideKeyboard()
+                etSearch.setText("")
+            }
+            ivDoSearch.setOnClickListener {
+                lifecycleScope.launch {
+                    viewModel.getCharacters(etSearch.text.toString()).collect {
+                        characterListAdapter.submitData(it)
+                    }
+                }
+            }
         }
     }
 
@@ -113,21 +121,13 @@ class CharacterListFragment : BaseFragment<CharacterListViewModel, FragmentChara
                 else -> null
             }
             errorState?.let {
-                requireActivity().showMessage(it.error.message.toString())
+                showMessage(it.error.message.toString())
             }
         }
     }
 
-    private fun bindEvents() {
-
-    }
-
     private fun handleLoading(loading: Boolean) {
-        if (loading) {
-            (requireActivity() as MainActivity).showProgress()
-        } else {
-            (requireActivity() as MainActivity).hideProgress()
-        }
+        if (loading) showProgress() else hideProgress()
     }
 
     fun requestBlankSearch() {

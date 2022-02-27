@@ -1,7 +1,6 @@
 package com.carlosblaya.marveldemo.base
 
 import android.app.Dialog
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         createProgressDialog()
     }
 

@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.carlosblaya.marveldemo.databinding.ActivitySplashBinding
 import com.carlosblaya.marveldemo.ui.main.MainActivity
 import com.carlosblaya.marveldemo.util.Konsts
-import com.carlosblaya.marveldemo.util.createIntent
-import com.carlosblaya.marveldemo.util.viewBinding
+import com.carlosblaya.marveldemo.util.extensions.createIntent
+import com.carlosblaya.marveldemo.util.extensions.viewBinding
 
 class SplashActivity : AppCompatActivity() {
 

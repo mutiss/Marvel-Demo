@@ -3,6 +3,7 @@ package com.carlosblaya.marveldemo.util
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.carlosblaya.marveldemo.R
+import com.carlosblaya.marveldemo.ui.characters.detail.CharacterDetailFragment
 import com.carlosblaya.marveldemo.ui.characters.list.CharacterListFragment
 import com.carlosblaya.marveldemo.ui.main.MainActivity
 
@@ -34,7 +35,9 @@ object FragmentUtil {
         when (tag) {
             TAG_SEARCH -> return CharacterListFragment()
             TAG_DETAIL -> {
-                return null
+                val detailFragment = CharacterDetailFragment()
+                detailFragment.arguments = bundle
+                return detailFragment
             }
         }
         return null

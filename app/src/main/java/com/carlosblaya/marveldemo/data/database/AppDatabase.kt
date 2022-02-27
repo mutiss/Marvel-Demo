@@ -3,15 +3,15 @@ package com.carlosblaya.marveldemo.data.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
-import com.carlosblaya.marveldemo.data.database.entities.Character
+import com.carlosblaya.marveldemo.data.database.entities.CharacterDB
 
 @Database(
     entities = [
-        Character::class
+        CharacterDB::class
     ], version = 1, exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
-    abstract val characterDao: CharacterDao
+    abstract fun characterDao(): CharacterDao
 }
 
