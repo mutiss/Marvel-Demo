@@ -19,18 +19,18 @@ class CharacterListAdapter @Inject constructor(private val superHeroClickListene
     }
 
     override fun onBindViewHolder(holder: CharacterListViewHolder, position: Int) {
-        getItem(position)?.let { holder.bind(it) }
+        getItem(position)?.let { holder.bind() }
     }
 
     inner class CharacterListViewHolder(val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(character: Character) {
+        fun bind() {
             val characterItem = getItem(absoluteAdapterPosition)
             characterItem?.let {
-                binding.ivSuperhero.fromUrl(character.thumbnail)
-                binding.tvName.text = character.name
-            }
-            binding.root.setOnClickListener {
-                superHeroClickListener(characterItem)
+                binding.ivSuperhero.fromUrl(it.thumbnail)
+                binding.tvName.text = it.name
+                binding.root.setOnClickListener {
+                    superHeroClickListener(characterItem)
+                }
             }
         }
     }

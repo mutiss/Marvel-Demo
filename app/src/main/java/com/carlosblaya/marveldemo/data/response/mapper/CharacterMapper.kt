@@ -36,19 +36,13 @@ class CharacterMapper {
         }
     }
 
-    fun toSingleCharacterDBList(json: CharacterResultResponse): CharacterDB {
-        with(json) {
-            return toCharacterDB(this.dataResponse.results.single())
-        }
-    }
-
     fun toCharacter(json: CharacterResponse): Character {
         with(json) {
             return Character(
                 id = id,
                 name = name,
                 description = if(description.isEmpty()) "No description available" else description,
-                thumbnail = generateThumbnailUrl(thumbnailResponse.path,thumbnailResponse.extension)
+                thumbnail = generateThumbnailUrl(thumbnailResponse.path,thumbnailResponse.extension),
             )
         }
     }

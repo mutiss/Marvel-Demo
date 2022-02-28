@@ -41,9 +41,9 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
         }
     }
 
-    fun showMessage(message: String) {
+    fun showMessage(message: String?) {
         if (activity is BaseActivity) {
-            (activity as BaseActivity?)?.showMessage(message)
+            (activity as BaseActivity?)?.showMessage(message.toString())
         }
     }
 }
