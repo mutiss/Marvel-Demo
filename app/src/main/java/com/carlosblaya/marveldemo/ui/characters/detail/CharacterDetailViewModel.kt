@@ -24,10 +24,12 @@ class CharacterDetailViewModel @Inject constructor(
     private val characterMapper: CharacterMapper
 ) : BaseViewModel() {
 
+    var idCharacter: Long = 0
+
     private val _characterDetailState = MutableStateFlow<CharacterDetailState>(CharacterDetailState.Loading)
     var characterDetailState: StateFlow<CharacterDetailState> = _characterDetailState
 
-    suspend fun getCharacter(id: Long) = getCharacterDetailUseCase.getCharacter(id).collect { result ->
+    suspend fun getCharacter() = getCharacterDetailUseCase.getCharacter(idCharacter).collect { result ->
         _characterDetailState.value = CharacterDetailState.Loading
         when (result) {
             is Result.Success -> {
@@ -39,8 +41,8 @@ class CharacterDetailViewModel @Inject constructor(
         }
     }
 
-    fun getCharacterDB(id: Long):Character {
-        return characterMapper.toCharacterFromDB(characterDao.getCharacter(id))
+    fun getCharacterDB():Character {
+        return characterMapper.toCharacterFromDB(characterDao.getCharacter(idCharacter))
     }
 }
 

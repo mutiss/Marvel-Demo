@@ -10,17 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.carlosblaya.marveldemo.R
 
-val Int.px: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
-
-fun View.show() {
-    this.visibility = View.VISIBLE
-}
-
-fun View.gone() {
-    this.visibility = View.GONE
-}
-
 fun View.fadeIn() {
     this.visibility = View.VISIBLE
     this.startAnimation(AlphaAnimation(0F, 1F).apply {
@@ -39,7 +28,7 @@ fun View.fadeOut() {
 
 fun ImageView.fromUrl(url: String) {
     if (url.isNotEmpty())
-        Glide.with(this).load(url).apply(RequestOptions.overrideOf(1024, 1024)).placeholder(R.drawable.marvel_logo).into(this)
+        Glide.with(this).load(url).apply(RequestOptions.overrideOf(1024, 1024)).placeholder(R.drawable.marvel_placeholder).into(this)
 }
 
 fun View.hideKeyboard() {

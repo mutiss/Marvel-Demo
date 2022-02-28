@@ -1,10 +1,14 @@
 package com.carlosblaya.marveldemo.ui.characters.detail
 
+import android.os.Bundle
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.carlosblaya.marveldemo.R
 import com.carlosblaya.marveldemo.base.BaseFragment
 import com.carlosblaya.marveldemo.databinding.FragmentCharacterDetailBinding
 import com.carlosblaya.marveldemo.domain.model.Character
+import com.carlosblaya.marveldemo.ui.comics.ComicListFragment
 import com.carlosblaya.marveldemo.ui.main.MainActivity
 import com.carlosblaya.marveldemo.util.ExtraConstants
 import com.carlosblaya.marveldemo.util.extensions.fromUrl
@@ -12,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentCharacterDetailBinding>() {
@@ -29,8 +34,10 @@ class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentC
     private fun initView() {
         arguments.let {
             idCharacter = requireArguments().getLong(ExtraConstants.ID_CHARACTER)
-            getDetailCharacterFromDB(idCharacter) //From DB First
-            requestDetailCharacter(idCharacter)
+            viewModel.idCharacter = idCharacter // ViewModel idAlbum is always the same
+            requestComicsCharacter(idCharacter)
+            getDetailCharacterFromDB() //From DB First
+            requestDetailCharacter()
         }
     }
 
@@ -61,15 +68,25 @@ class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentC
         }
     }
 
-    fun requestDetailCharacter(idCharacter: Long) {
+    fun requestDetailCharacter() {
         lifecycleScope.launch {
-            viewModel.getCharacter(idCharacter)
+            viewModel.getCharacter()
         }
     }
 
-    fun getDetailCharacterFromDB(idCharacter: Long) {
+    fun getDetailCharacterFromDB() {
         lifecycleScope.launch(Dispatchers.Main) {
-            setupCharacter(viewModel.getCharacterDB(idCharacter))
+            setupCharacter(viewModel.getCharacterDB())
         }
+    }
+
+    fun requestComicsCharacter(idCharacter: Long) {
+        val bundle = Bundle()
+        bundle.putSerializable(ExtraConstants.ID_CHARACTER, idCharacter)
+        val mComicListFragment = ComicListFragment()
+        mComicListFragment.arguments = bundle
+        val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fl_container_comics, mComicListFragment)
+        transaction.commit()
     }
 }

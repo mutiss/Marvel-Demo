@@ -1,6 +1,7 @@
 package com.carlosblaya.marveldemo.di
 
 import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
+import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,4 +15,7 @@ class AppModule {
     @Singleton
     fun provideCharacterMapper(): CharacterMapper = CharacterMapper()
 
+    @Provides
+    @Singleton
+    fun provideComicMapper(): ComicMapper = ComicMapper()
 }

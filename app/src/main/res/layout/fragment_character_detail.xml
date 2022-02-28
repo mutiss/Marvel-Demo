@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/marvel_red"
-    android:orientation="vertical">
+    android:background="@color/marvel_red">
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -14,7 +13,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="280dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -33,6 +33,11 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white"></View>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
@@ -41,15 +46,17 @@
                 android:fontFamily="@font/monts_bold"
                 android:gravity="left|center"
                 android:padding="8dp"
-                android:text=""
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18" />
-
+                android:textSize="@dimen/text_size_14" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
     </androidx.core.widget.NestedScrollView>
 
+    <FrameLayout
+        android:id="@+id/fl_container_comics"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"></FrameLayout>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>
