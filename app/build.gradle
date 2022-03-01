@@ -23,9 +23,29 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"${secretProperties.getProperty('app.marvel_public_api_key')}\""
-        buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"${secretProperties.getProperty('app.marvel_private_api_key')}\""
+    }
 
+    // Specifies one flavor dimension.
+    flavorDimensions "server"
+    productFlavors {
+        dev {
+            //Change these values for DEV
+            buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"${secretProperties.getProperty('app.marvel_public_api_key')}\""
+            buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"${secretProperties.getProperty('app.marvel_private_api_key')}\""
+            buildConfigField "String", "BASE_URL_SERVICE", "\"https://gateway.marvel.com/\""
+            dimension "server"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        pro {
+            //Change these values for PRO
+            buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"${secretProperties.getProperty('app.marvel_public_api_key')}\""
+            buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"${secretProperties.getProperty('app.marvel_private_api_key')}\""
+            buildConfigField "String", "BASE_URL_SERVICE", "\"https://gateway.marvel.com/\""
+            dimension "server"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+        }
     }
 
     buildTypes {
