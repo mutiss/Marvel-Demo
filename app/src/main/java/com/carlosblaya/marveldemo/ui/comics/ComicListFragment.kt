@@ -1,6 +1,5 @@
 package com.carlosblaya.marveldemo.ui.comics
 
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -9,7 +8,6 @@ import com.carlosblaya.marveldemo.base.BaseFragment
 import com.carlosblaya.marveldemo.databinding.FragmentComicsListBinding
 import com.carlosblaya.marveldemo.ui.comics.adapter.ComicListAdapter
 import com.carlosblaya.marveldemo.util.ExtraConstants
-import com.carlosblaya.marveldemo.util.extensions.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

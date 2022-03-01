@@ -9,9 +9,6 @@ import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
-
-
-
 @InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {

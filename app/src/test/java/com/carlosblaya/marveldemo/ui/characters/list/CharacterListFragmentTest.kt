@@ -1,7 +1,6 @@
 package com.carlosblaya.marveldemo.ui.characters.list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.core.view.PointerIconCompat.load
 import androidx.paging.PagingSource
 import com.carlosblaya.marveldemo.CoroutinesTestRule
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
@@ -42,9 +41,6 @@ class CharacterListFragmentTest {
     @get:Rule
     var instantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
-    @Mock
-    lateinit var getCharactersUseCase: GetCharactersUseCase
-
     @get:Rule
     val coroutinesTestRule = CoroutinesTestRule()
 
@@ -84,6 +80,7 @@ class CharacterListFragmentTest {
     @BeforeEach
     fun setup() {
         MockitoAnnotations.openMocks(this)
+        characterPagingSource = CharacterPagingSource(getCharacterApiInterface,getCharacterMapper,characterName,getCharacterDao)
     }
 
     @AfterEach
@@ -111,7 +108,7 @@ class CharacterListFragmentTest {
     }
 
     @Test
-    fun `reviews paging source load - failure - http error`() = runBlockingTest {
+    fun `characters paging source load - failure - http error`() = runBlockingTest {
         val error = RuntimeException("404", Throwable())
         given(getCharacterApiInterface.getCharacters(any(), any(), any(), any(), any())).willThrow(error)
         val expectedResult = PagingSource.LoadResult.Error<Int, Character>(error)
@@ -127,7 +124,7 @@ class CharacterListFragmentTest {
     }
 
     @Test
-    fun `reviews paging source load - failure - received null`() = runBlockingTest {
+    fun `characters paging source load - failure - received null`() = runBlockingTest {
         given(getCharacterApiInterface.getCharacters(any(), any(), any(), any(), any())).willReturn(null)
         val expectedResult = PagingSource.LoadResult.Error<Int, Character>(NullPointerException())
         assertEquals(

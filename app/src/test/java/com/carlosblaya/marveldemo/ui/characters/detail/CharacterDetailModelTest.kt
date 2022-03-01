@@ -74,7 +74,8 @@ class CharacterDetailModelTest {
             val vm = CharacterDetailViewModel(getCharacterDetailUseCase, getCharacterDao, getCharacterMapper)
             whenever(getCharacterDetailUseCase.getCharacter(any())).thenReturn(flow)
 
-            vm.getCharacter(characterId)
+            vm.idCharacter = characterId
+            vm.getCharacter()
             verify(getCharacterDetailUseCase, times(1)).getCharacter(any())
             assert(vm.characterDetailState.value as CharacterDetailState.Loading == CharacterDetailState.Loading)
         }
@@ -91,7 +92,8 @@ class CharacterDetailModelTest {
             }
 
             whenever(getCharacterDetailUseCase.getCharacter(any())).thenReturn(flow)
-            vm.getCharacter(characterId)
+            vm.idCharacter = characterId
+            vm.getCharacter()
             assert((vm.characterDetailState.value as CharacterDetailState.Success).character == mock)
         }
     }
