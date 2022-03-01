@@ -23,7 +23,7 @@ Hope you like it :)
 - Retrofit2 & OkHttp3
 - Material Components
 - Lottie
-- Unit Testing
+- Unit Testing (Some tests are not completed due complexity and few time to work)
 - Timber
 - Glide
 <br>
