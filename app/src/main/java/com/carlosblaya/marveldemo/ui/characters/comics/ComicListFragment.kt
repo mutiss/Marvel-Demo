@@ -1,4 +1,4 @@
-package com.carlosblaya.marveldemo.ui.comics
+package com.carlosblaya.marveldemo.ui.characters.comics
 
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.carlosblaya.marveldemo.base.BaseFragment
 import com.carlosblaya.marveldemo.databinding.FragmentComicsListBinding
-import com.carlosblaya.marveldemo.ui.comics.adapter.ComicListAdapter
+import com.carlosblaya.marveldemo.ui.characters.comics.adapter.ComicListAdapter
 import com.carlosblaya.marveldemo.util.ExtraConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

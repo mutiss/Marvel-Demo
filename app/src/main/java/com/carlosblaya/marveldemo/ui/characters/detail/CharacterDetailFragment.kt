@@ -8,7 +8,7 @@ import com.carlosblaya.marveldemo.R
 import com.carlosblaya.marveldemo.base.BaseFragment
 import com.carlosblaya.marveldemo.databinding.FragmentCharacterDetailBinding
 import com.carlosblaya.marveldemo.domain.model.Character
-import com.carlosblaya.marveldemo.ui.comics.ComicListFragment
+import com.carlosblaya.marveldemo.ui.characters.comics.ComicListFragment
 import com.carlosblaya.marveldemo.ui.main.MainActivity
 import com.carlosblaya.marveldemo.util.ExtraConstants
 import com.carlosblaya.marveldemo.util.extensions.fromUrl
@@ -85,6 +85,7 @@ class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentC
         bundle.putSerializable(ExtraConstants.ID_CHARACTER, idCharacter)
         val mComicListFragment = ComicListFragment()
         mComicListFragment.arguments = bundle
+
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_container_comics, mComicListFragment)
         transaction.commit()

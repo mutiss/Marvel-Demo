@@ -1,4 +1,4 @@
-package com.carlosblaya.marveldemo
+package com.carlosblaya.marveldemo.ui.characters.comics
 
 object ComicsMockResponse {
 

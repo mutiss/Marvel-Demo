@@ -89,7 +89,7 @@ class CharacterListFragmentTest {
     }
 
     @Test
-    fun `reviews paging source refresh - success`() = runBlockingTest {
+    fun `characters paging source refresh - success`() = runBlockingTest {
         given(getCharacterApiInterface.getCharacters(Konsts.PUBLIC_KEY,Konsts.timeStamp, Konsts.hash(), 0, characterName)).willReturn(characterResponse)
         val expectedResult = PagingSource.LoadResult.Page(
             data = characterResponse.dataResponse.results,
