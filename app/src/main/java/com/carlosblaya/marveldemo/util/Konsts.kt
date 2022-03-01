@@ -14,7 +14,6 @@ class Konsts {
         const val DATABASE_NAME = "marveldemo_database.db"
 
         //Network
-        const val BASE_URL_SERVICE = "https://gateway.marvel.com/"
         val timeStamp = Timestamp(System.currentTimeMillis()).time.toString()
         const val PUBLIC_KEY = BuildConfig.MARVEL_API_PUBLIC_KEY
         const val PRIVATE_KEY = BuildConfig.MARVEL_API_PRIVATE_KEY

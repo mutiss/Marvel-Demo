@@ -1,5 +1,6 @@
 package com.carlosblaya.marveldemo.di
 
+import com.carlosblaya.marveldemo.BuildConfig
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.repository.CharacterRepositoryImpl
@@ -26,7 +27,7 @@ class CharacterModule {
     @Provides
     fun provideCharacterApi(okHttpClient: OkHttpClient): CharacterApiInterface {
         return Retrofit.Builder()
-            .baseUrl(Konsts.BASE_URL_SERVICE)
+            .baseUrl(BuildConfig.BASE_URL_SERVICE)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
