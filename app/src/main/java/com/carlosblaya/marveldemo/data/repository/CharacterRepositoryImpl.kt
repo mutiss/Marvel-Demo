@@ -8,8 +8,11 @@ import com.carlosblaya.marveldemo.data.Result
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.pagingsources.CharacterPagingSource
+import com.carlosblaya.marveldemo.data.pagingsources.ComicPagingSource
 import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
+import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import com.carlosblaya.marveldemo.domain.model.Character
+import com.carlosblaya.marveldemo.domain.model.Comic
 import com.carlosblaya.marveldemo.domain.repository.CharacterRepository
 import com.carlosblaya.marveldemo.util.Konsts
 import javax.inject.Inject
@@ -20,7 +23,8 @@ import kotlinx.coroutines.flow.flow
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
     private val characterApiInterface: CharacterApiInterface,
-    private val mapper: CharacterMapper,
+    private val mapperCharacter: CharacterMapper,
+    private val mapperComic: ComicMapper,
     private val characterDao: CharacterDao
 ) : BaseRepository(), CharacterRepository {
 
@@ -31,7 +35,7 @@ class CharacterRepositoryImpl @Inject constructor(
                 enablePlaceholders = false,
             ),
             pagingSourceFactory = {
-                CharacterPagingSource(characterApiInterface, mapper, name, characterDao)
+                CharacterPagingSource(characterApiInterface, mapperCharacter, name, characterDao)
             }
         ).flow
     }
@@ -39,9 +43,21 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun getCharacter(id: Long): Flow<Result<Character>> {
         return flow {
             emit(execute {
-                mapper.toSingleCharacterList(characterApiInterface.getCharacterDetail(id))
+                mapperCharacter.toSingleCharacterList(characterApiInterface.getCharacterDetail(id))
             })
         }
+    }
+
+    override suspend fun getComics(idCharacter: Long): Flow<PagingData<Comic>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Konsts.NETWORK_PAGE_SIZE,
+                enablePlaceholders = false,
+            ),
+            pagingSourceFactory = {
+                ComicPagingSource(characterApiInterface, mapperComic, idCharacter)
+            }
+        ).flow
     }
 
 }

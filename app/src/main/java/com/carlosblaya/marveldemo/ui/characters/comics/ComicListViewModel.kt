@@ -1,4 +1,4 @@
-package com.carlosblaya.marveldemo.ui.comics
+package com.carlosblaya.marveldemo.ui.characters.comics
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn

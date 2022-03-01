@@ -5,6 +5,7 @@ import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.repository.CharacterRepositoryImpl
 import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
+import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import com.carlosblaya.marveldemo.domain.repository.CharacterRepository
 import com.carlosblaya.marveldemo.util.Konsts
 import dagger.Module
@@ -22,7 +23,7 @@ class CharacterModule {
 
     @Provides
     @Singleton
-    fun provideCharacterRepository(api: CharacterApiInterface, characterListMapper: CharacterMapper, characterDao: CharacterDao): CharacterRepository = CharacterRepositoryImpl(api,characterListMapper,characterDao)
+    fun provideCharacterRepository(api: CharacterApiInterface, characterListMapper: CharacterMapper,comicMapper: ComicMapper,  characterDao: CharacterDao): CharacterRepository = CharacterRepositoryImpl(api,characterListMapper,comicMapper,characterDao)
 
     @Provides
     fun provideCharacterApi(okHttpClient: OkHttpClient): CharacterApiInterface {

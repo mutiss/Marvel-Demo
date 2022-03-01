@@ -1,4 +1,4 @@
-package com.carlosblaya.marveldemo.ui.comics.adapter
+package com.carlosblaya.marveldemo.ui.characters.comics.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

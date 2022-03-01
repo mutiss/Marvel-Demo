@@ -1,15 +1,13 @@
 package com.carlosblaya.marveldemo.domain.usecases
 
 import androidx.paging.PagingData
-import com.carlosblaya.marveldemo.data.Result
-import com.carlosblaya.marveldemo.domain.model.Character
 import com.carlosblaya.marveldemo.domain.model.Comic
-import com.carlosblaya.marveldemo.domain.repository.ComicRepository
+import com.carlosblaya.marveldemo.domain.repository.CharacterRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-class GetComicsCharacterUseCase @Inject constructor(private val comicRepository: ComicRepository) {
+class GetComicsCharacterUseCase @Inject constructor(private val characterRepository: CharacterRepository) {
     suspend fun getComics(id: Long): Flow<PagingData<Comic>> {
-        return comicRepository.getComics(id)
+        return characterRepository.getComics(id)
     }
 }

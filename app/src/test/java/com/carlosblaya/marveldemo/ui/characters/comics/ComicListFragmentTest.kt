@@ -1,15 +1,11 @@
-package com.carlosblaya.marveldemo.ui.comics
+package com.carlosblaya.marveldemo.ui.characters.comics
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
-import com.carlosblaya.marveldemo.ComicsMockResponse
 import com.carlosblaya.marveldemo.CoroutinesTestRule
-import com.carlosblaya.marveldemo.data.network.services.ComicApiInterface
+import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.pagingsources.ComicPagingSource
-import com.carlosblaya.marveldemo.data.response.ComicDataContainerResponse
 import com.carlosblaya.marveldemo.data.response.ComicDataWrapperResponse
-import com.carlosblaya.marveldemo.data.response.ComicResponse
-import com.carlosblaya.marveldemo.data.response.Image
 import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import com.carlosblaya.marveldemo.domain.model.Comic
 import com.carlosblaya.marveldemo.util.Konsts
@@ -44,7 +40,7 @@ class ComicListFragmentTest {
     val coroutinesTestRule = CoroutinesTestRule()
 
     @Mock
-    lateinit var getComicApiInterface: ComicApiInterface
+    lateinit var getCharacterApiInterface: CharacterApiInterface
 
     @Mock
     lateinit var getComicMapper: ComicMapper
@@ -56,13 +52,13 @@ class ComicListFragmentTest {
 
     companion object {
         var gson = Gson()
-        var mComicDataWrapperResponse = gson?.fromJson(ComicsMockResponse.comicsListSampleResponse, ComicDataWrapperResponse::class.java)
+        var mComicDataWrapperResponse = gson.fromJson(ComicsMockResponse.comicsListSampleResponse, ComicDataWrapperResponse::class.java)
     }
 
     @BeforeEach
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        comicPagingSource = ComicPagingSource(getComicApiInterface,getComicMapper,idCharacter)
+        comicPagingSource = ComicPagingSource(getCharacterApiInterface,getComicMapper,idCharacter)
     }
 
     @AfterEach
@@ -72,7 +68,7 @@ class ComicListFragmentTest {
 
     @Test
     fun `comics paging source refresh - success`() = runBlockingTest {
-        given(getComicApiInterface.getComicsCharacter(idCharacter,0,Konsts.PUBLIC_KEY, Konsts.timeStamp, Konsts.hash())).willReturn(mComicDataWrapperResponse)
+        given(getCharacterApiInterface.getComicsCharacter(idCharacter,0,Konsts.PUBLIC_KEY, Konsts.timeStamp, Konsts.hash())).willReturn(mComicDataWrapperResponse)
         val expectedResult = PagingSource.LoadResult.Page(
             data = mComicDataWrapperResponse.data.results,
             prevKey = null,
@@ -92,7 +88,7 @@ class ComicListFragmentTest {
     @Test
     fun `comics paging source load - failure - http error`() = runBlockingTest {
         val error = RuntimeException("404", Throwable())
-        given(getComicApiInterface.getComicsCharacter(any(), any(), any(), any(), any())).willThrow(error)
+        given(getCharacterApiInterface.getComicsCharacter(any(), any(), any(), any(), any(),any(),any())).willThrow(error)
         val expectedResult = PagingSource.LoadResult.Error<Int, Comic>(error)
         assertEquals(
             expectedResult, comicPagingSource.load(
@@ -107,7 +103,7 @@ class ComicListFragmentTest {
 
     @Test
     fun `comics paging source load - failure - received null`() = runBlockingTest {
-        given(getComicApiInterface.getComicsCharacter(any(), any(), any(), any(), any())).willReturn(null)
+        given(getCharacterApiInterface.getComicsCharacter(any(), any(), any(), any(), any(),any(),any())).willReturn(null)
         val expectedResult = PagingSource.LoadResult.Error<Int, Comic>(NullPointerException())
         assertEquals(
             expectedResult.toString(), comicPagingSource.load(

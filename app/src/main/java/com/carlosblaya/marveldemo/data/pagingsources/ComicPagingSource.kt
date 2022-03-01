@@ -2,13 +2,13 @@ package com.carlosblaya.marveldemo.data.pagingsources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.carlosblaya.marveldemo.data.network.services.ComicApiInterface
+import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import com.carlosblaya.marveldemo.domain.model.Comic
 import com.carlosblaya.marveldemo.util.Konsts
 
 class ComicPagingSource(
-    private val service: ComicApiInterface,
+    private val service: CharacterApiInterface,
     private val mapper: ComicMapper,
     private val idCharacter: Long,
 ) : PagingSource<Int, Comic>() {
