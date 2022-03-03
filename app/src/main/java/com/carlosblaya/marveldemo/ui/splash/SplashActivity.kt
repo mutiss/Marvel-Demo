@@ -3,9 +3,9 @@ package com.carlosblaya.marveldemo.ui.splash
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.carlosblaya.marveldemo.core.Konsts
 import com.carlosblaya.marveldemo.databinding.ActivitySplashBinding
 import com.carlosblaya.marveldemo.ui.main.MainActivity
-import com.carlosblaya.marveldemo.util.Konsts
 import com.carlosblaya.marveldemo.util.extensions.createIntent
 import com.carlosblaya.marveldemo.util.extensions.viewBinding
 

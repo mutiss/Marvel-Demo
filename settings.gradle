@@ -25,4 +25,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "MarvelDemo"
-include ':app'
+include ':app', ':domain', ':data', ':core'

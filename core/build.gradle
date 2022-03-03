@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdk 31
+    defaultConfig {
+        minSdk 23
+        targetSdk 31
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    // Specifies one flavor dimension.
+    flavorDimensions "server"
+    productFlavors {
+        dev {
+            //Change these values for DEV
+            buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"738e9df098664ea7ffd4e4fdb011e1de\""
+            buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"887310a0192a7e6904f5491417ea7109fe903f7f\""
+            dimension "server"
+        }
+        pro {
+            //Change these values for PRO
+            buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"738e9df098664ea7ffd4e4fdb011e1de\""
+            buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"887310a0192a7e6904f5491417ea7109fe903f7f\""
+            dimension "server"
+        }
+    }
+}
+
+dependencies {
+    //JETPACK
+    def lifecycle_version = "2.3.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.4.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+
+    implementation "com.google.dagger:hilt-android:2.40.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.40.1"
+
+}

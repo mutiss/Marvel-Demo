@@ -3,12 +3,12 @@ package com.carlosblaya.marveldemo.ui.characters.comics
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.carlosblaya.marveldemo.CoroutinesTestRule
+import com.carlosblaya.marveldemo.core.Konsts
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.pagingsources.ComicPagingSource
 import com.carlosblaya.marveldemo.data.response.ComicDataWrapperResponse
 import com.carlosblaya.marveldemo.data.response.mapper.ComicMapper
 import com.carlosblaya.marveldemo.domain.model.Comic
-import com.carlosblaya.marveldemo.util.Konsts
 import com.google.gson.Gson
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.given
@@ -68,7 +68,7 @@ class ComicListFragmentTest {
 
     @Test
     fun `comics paging source refresh - success`() = runBlockingTest {
-        given(getCharacterApiInterface.getComicsCharacter(idCharacter,0,Konsts.PUBLIC_KEY, Konsts.timeStamp, Konsts.hash())).willReturn(mComicDataWrapperResponse)
+        given(getCharacterApiInterface.getComicsCharacter(idCharacter,0, Konsts.PUBLIC_KEY, Konsts.timeStamp, Konsts.hash())).willReturn(mComicDataWrapperResponse)
         val expectedResult = PagingSource.LoadResult.Page(
             data = mComicDataWrapperResponse.data.results,
             prevKey = null,

@@ -42,4 +42,5 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+
 }
