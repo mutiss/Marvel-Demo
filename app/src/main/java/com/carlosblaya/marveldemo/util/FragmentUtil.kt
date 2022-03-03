@@ -7,7 +7,6 @@ import com.carlosblaya.marveldemo.ui.characters.detail.CharacterDetailFragment
 import com.carlosblaya.marveldemo.ui.characters.list.CharacterListFragment
 import com.carlosblaya.marveldemo.ui.main.MainActivity
 
-
 object FragmentUtil {
 
     const val TAG_SEARCH: String = "search"

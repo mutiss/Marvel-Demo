@@ -2,7 +2,7 @@ package com.carlosblaya.marveldemo.ui.characters.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.carlosblaya.marveldemo.CoroutinesTestRule
-import com.carlosblaya.marveldemo.data.Result
+import com.carlosblaya.marveldemo.core.data.Result
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
 import com.carlosblaya.marveldemo.domain.model.Character

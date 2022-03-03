@@ -3,6 +3,7 @@ package com.carlosblaya.marveldemo.ui.characters.list
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.PagingSource
 import com.carlosblaya.marveldemo.CoroutinesTestRule
+import com.carlosblaya.marveldemo.core.Konsts
 import com.carlosblaya.marveldemo.data.database.dao.CharacterDao
 import com.carlosblaya.marveldemo.data.network.services.CharacterApiInterface
 import com.carlosblaya.marveldemo.data.pagingsources.CharacterPagingSource
@@ -12,8 +13,6 @@ import com.carlosblaya.marveldemo.data.response.CharacterResultResponse
 import com.carlosblaya.marveldemo.data.response.ThumbnailResponse
 import com.carlosblaya.marveldemo.data.response.mapper.CharacterMapper
 import com.carlosblaya.marveldemo.domain.model.Character
-import com.carlosblaya.marveldemo.domain.usecases.GetCharactersUseCase
-import com.carlosblaya.marveldemo.util.Konsts
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.given
 import kotlinx.coroutines.Dispatchers
@@ -90,7 +89,7 @@ class CharacterListFragmentTest {
 
     @Test
     fun `characters paging source refresh - success`() = runBlockingTest {
-        given(getCharacterApiInterface.getCharacters(Konsts.PUBLIC_KEY,Konsts.timeStamp, Konsts.hash(), 0, characterName)).willReturn(characterResponse)
+        given(getCharacterApiInterface.getCharacters(Konsts.PUBLIC_KEY, Konsts.timeStamp, Konsts.hash(), 0, characterName)).willReturn(characterResponse)
         val expectedResult = PagingSource.LoadResult.Page(
             data = characterResponse.dataResponse.results,
             prevKey = null,
